@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: 752db851d52c31545957b4a39f249f38
+timeCreated: 1523540930
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Catamaran
+  fontNames:
+  - Catamaran
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 0b827432ae108304fa026a0be0628777, type: 3}
+  - {fileID: 12800000, guid: 634266674be089b479a9d987250c322a, type: 3}
+  - {fileID: 12800000, guid: 259aca39ced3224409a09255bd79902f, type: 3}
+  - {fileID: 12800000, guid: 2588ad6d4aa3165458b9868a5c852243, type: 3}
+  - {fileID: 12800000, guid: 18d48ecfb4b4116409da37b61db3e8de, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
