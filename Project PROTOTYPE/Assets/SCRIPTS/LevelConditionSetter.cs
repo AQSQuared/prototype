@@ -41,6 +41,7 @@ public class LevelConditionSetter : MonoBehaviour {
     bool isEndless;
 
     public float loadingTime = 4f;
+    public Vector2 lTminMax;
     float evaluationTimeChange = 0.0f;
 
     private void Awake()
@@ -81,6 +82,8 @@ public class LevelConditionSetter : MonoBehaviour {
 
     private void Start()
     {
+        loadingTime = Random.Range(lTminMax.x, lTminMax.y);
+
         anim = FindObjectOfType<Animator>();
         if (FindObjectOfType<AudioController>() != null)
             FindObjectOfType<AudioController>().GetComponent<AudioSource>().volume = 0.12f;
@@ -112,13 +115,13 @@ public class LevelConditionSetter : MonoBehaviour {
             if (isRedwordForLevel && winCondition == WinCondition.NUMBER_OF_WORDS)
             {
                 rW.gameObject.SetActive(true);
-                rwTitleText.text = "RED WORDS (WORDS)";
+                rwTitleText.text = "NUMBERS";
                 rwDesText.text = descriptions[2];
             }
             else if (isRedwordForLevel && winCondition == WinCondition.SCORE)
             {
                 rW.gameObject.SetActive(true);
-                rwTitleText.text = "RED WORDS (SCORE)";
+                rwTitleText.text = "NUMBERS";
                 rwDesText.text = descriptions[3];
             }
             else if (!isRedwordForLevel)
@@ -129,13 +132,13 @@ public class LevelConditionSetter : MonoBehaviour {
             if (isMistakeForLevel && winCondition == WinCondition.NUMBER_OF_WORDS)
             {
                 mM.gameObject.SetActive(true);
-                mmTitleText.text = "MISTAKE (WORDS)";
+                mmTitleText.text = "MISTAKE [WORDS]";
                 mmDesText.text = descriptions[4];
             }
             else if (isMistakeForLevel && winCondition == WinCondition.SCORE)
             {
                 mM.gameObject.SetActive(true);
-                mmTitleText.text = "MISTAKE (SCORE)";
+                mmTitleText.text = "MISTAKE [SCORE]";
                 mmDesText.text = descriptions[5];
             }
             else if (!isMistakeForLevel)

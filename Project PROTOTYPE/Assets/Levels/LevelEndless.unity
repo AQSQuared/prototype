@@ -2442,7 +2442,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: SUBMIT HIGHSCORE
+  m_Text: 
 --- !u!222 &207197545
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5653,6 +5653,7 @@ MonoBehaviour:
   numberOfWordsToSpawn: 20
   spawnTimer: 3
   requiredIncreaseInSpawns: 2.5
+  maxAmountOfDigsInNumode: 25
   canSpawn: 1
 --- !u!114 &389774506
 MonoBehaviour:
@@ -5669,6 +5670,7 @@ MonoBehaviour:
   isBackwards: 0
   isEndless: 1
   isRedWordRound: 0
+  isNumberMode: 0
   isMistakeMode: 0
   isQwertyKeys: 1
   isAzertyKeys: 0
@@ -5690,6 +5692,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: df2200f7fac48bd4aac23acb948464cb, type: 3}
   - {fileID: 8300000, guid: 8caf34ed4c66fc14d912c2537f2a359f, type: 3}
   errorSound: {fileID: 8300000, guid: 3d3fb07fbb538f54e9fe469e3e2c4f44, type: 3}
+  fwbwtranim: {fileID: 0}
 --- !u!4 &389774507
 Transform:
   m_ObjectHideFlags: 0
@@ -5771,6 +5774,7 @@ MonoBehaviour:
   qwertyBoard: {fileID: 1524246397}
   azertyBoard: {fileID: 466473093}
   regularBoard: {fileID: 828540824}
+  numberBoard: {fileID: 0}
   ins01P: {fileID: 93512307}
   ins02P: {fileID: 1301823710}
   ins03P: {fileID: 317261284}
@@ -5793,6 +5797,7 @@ MonoBehaviour:
   levelCompletionIndicatorText: {fileID: 2100662002}
   nextLevelButton: {fileID: 2103212079}
   winSound: {fileID: 0}
+  scoreCountSound: {fileID: 0}
   thingsToDisable:
   - {fileID: 2121512702}
   - {fileID: 399014004}

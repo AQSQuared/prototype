@@ -10,7 +10,7 @@ public class Prototype : MonoBehaviour {
     public bool isBackwards;
     public bool isEndless;
     public bool isRedWordRound;
-    //public bool isNumberMode;
+    public bool isNumberMode;
     public bool isMistakeMode;
     public bool isQwertyKeys;
     public bool isAzertyKeys;
@@ -26,6 +26,7 @@ public class Prototype : MonoBehaviour {
     public Color selectedPlaceholderTextColor;
     public AudioClip[] soundForKeys;
     public AudioClip errorSound;
+    public Animator fwbwtranim;
 
     private List<string> firstCharsOfAvailableWords = new List<string>();
     private List<string> lastCharsOfAvailableWords = new List<string>();
@@ -35,6 +36,7 @@ public class Prototype : MonoBehaviour {
     int numberOfWordsForEndless;
 
     private GameManager manager;
+    private Text fwbwText;
 
     private void Start()
     {
@@ -46,7 +48,10 @@ public class Prototype : MonoBehaviour {
             roundType = "backward";
 
         manager = GetComponent<GameManager>();
-        manager.SetKeyboard(isQwertyKeys, isAzertyKeys, true, isRedWordRound, isMistakeMode, roundType);
+        manager.SetKeyboard(isQwertyKeys, isAzertyKeys, isNumberMode, true, isNumberMode, isMistakeMode, roundType);
+
+        fwbwText = fwbwtranim.gameObject.transform.Find("res").GetComponent<Text>();
+        SetAndPlayFWBWTR();
     }
 
     private void Update()
@@ -397,5 +402,18 @@ public class Prototype : MonoBehaviour {
         {
             word.color = new Color(word.color.r, word.color.g, word.color.b, 1);
         }
+    }
+
+    public void SetAndPlayFWBWTR()
+    {
+        if (isForwards)
+        {
+            fwbwText.text = "FORWARDS";
+        }
+        if (isBackwards)
+        {
+            fwbwText.text = "BACKWARDS";
+        }
+        fwbwtranim.SetTrigger(Animator.StringToHash("fwbwTr"));
     }
 }

@@ -19,6 +19,7 @@ public class RootManager : MonoBehaviour {
  
     void Start()
     {
+        //PlayerPrefs.DeleteAll();
         anim = FindObjectOfType<Animator>();
         if (FindObjectOfType<AudioController>() != null)
         {

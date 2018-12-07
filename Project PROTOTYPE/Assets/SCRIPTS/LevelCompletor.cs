@@ -11,6 +11,7 @@ public class LevelCompletor : MonoBehaviour {
     public Text levelCompletionIndicatorText;
     public Image nextLevelButton;
     public AudioClip winSound;
+    public AudioClip scoreCountSound;
 
     public GameObject[] thingsToDisable;
     public AudioClip[] loseSounds;
@@ -99,14 +100,30 @@ public class LevelCompletor : MonoBehaviour {
         for (int i = 0; i <= incersion; i++)
         {
             incestText.text = i.ToString();
-            if(_winCondition == WinCondition.NUMBER_OF_WORDS)
+            if(scoreCountSound != null && _winCondition == WinCondition.SCORE)
             {
-                yield return new WaitForSeconds(0.35f);
+                GetComponent<AudioSource>().volume = 0.15f;
+                GetComponent<AudioSource>().PlayOneShot(scoreCountSound);
+            }
+            if (_winCondition == WinCondition.NUMBER_OF_WORDS)
+            {
+                yield return new WaitForSeconds(0.15f);
             }
             if (_winCondition == WinCondition.SCORE)
             {
-                yield return new WaitForSeconds(0.0125f);
+                yield return new WaitForSeconds(0.00125f);
             }
+            if(Input.touchCount == 1 && i > 30)
+            {
+                i = Mathf.FloorToInt(incersion);
+            }
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.Space) && i > 30)
+            {
+                i = Mathf.FloorToInt(incersion);
+                incestText.text = i.ToString();
+            }
+#endif
         }
 
         StarDecider(_stars);

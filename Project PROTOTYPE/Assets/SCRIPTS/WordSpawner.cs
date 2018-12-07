@@ -10,6 +10,7 @@ public class WordSpawner : MonoBehaviour {
     public int numberOfWordsToSpawn = 4;
     public float spawnTimer = 4f;
     public float requiredIncreaseInSpawns = 2f;
+    public int maxAmountOfDigsInNumode = 25;
     public bool canSpawn = true;
 
     private string[] possibleWords =
@@ -28,6 +29,8 @@ public class WordSpawner : MonoBehaviour {
     {
         "easy", "peasy", "horrible", "why", "test"
     };
+
+    string numbersToGenerateRandomly = "1234567890";
 
     private GameObject canvasPanel;
     private Prototype prototype;
@@ -79,18 +82,37 @@ public class WordSpawner : MonoBehaviour {
 
     private void SpawnWords()
     {
-        WordBehaviour word = (WordBehaviour)Instantiate(wordToBeSpawned, new Vector3(Random.Range(-canvasWidth + canvasWidth / 2, canvasWidth - canvasWidth / 2) / 2, cameraHeight + (wordToBeSpawned.GetComponent<RectTransform>().rect.height) / 144f, 0), Quaternion.identity);
+        if (!prototype.isNumberMode)
+        {
+            WordBehaviour word = (WordBehaviour)Instantiate(wordToBeSpawned, new Vector3(Random.Range(-canvasWidth + canvasWidth / 2, canvasWidth - canvasWidth / 2) / 2, cameraHeight + (wordToBeSpawned.GetComponent<RectTransform>().rect.height) / 144f, 0), Quaternion.identity);
 
-        if(prototype.isForwards)
-            word.GetComponent<Text>().text = possibleWords[Random.Range(0, possibleWords.Length)];
+            if (prototype.isForwards)
+                word.GetComponent<Text>().text = possibleWords[Random.Range(0, possibleWords.Length)];
 
-        if(prototype.isBackwards)
-            word.GetComponent<Text>().text = possibleWordsIfBackwards[Random.Range(0, possibleWordsIfBackwards.Length)];
+            if (prototype.isBackwards)
+                word.GetComponent<Text>().text = possibleWordsIfBackwards[Random.Range(0, possibleWordsIfBackwards.Length)];
 
-        word.transform.SetParent(canvasPanel.transform);
-        word.startFallingToggleTimer = spawnTimer;
-        StartCoroutine(word.ToggleFalling());
-        GetComponent<Prototype>().RefreshLetters();
+            word.transform.SetParent(canvasPanel.transform);
+            word.startFallingToggleTimer = spawnTimer;
+            StartCoroutine(word.ToggleFalling());
+            GetComponent<Prototype>().RefreshLetters();
+        }
+
+        if (prototype.isNumberMode)
+        {
+
+            WordBehaviour word = (WordBehaviour)Instantiate(wordToBeSpawned, new Vector3(Random.Range(-canvasWidth + canvasWidth / 2, canvasWidth - canvasWidth / 2) / 2, cameraHeight + (wordToBeSpawned.GetComponent<RectTransform>().rect.height) / 144f, 0), Quaternion.identity);
+
+            for(int i = 0; i < Random.Range(3, (maxAmountOfDigsInNumode + 1)); i++)
+            {
+                word.GetComponent<Text>().text += numbersToGenerateRandomly[Random.Range(0, numbersToGenerateRandomly.Length)];
+            }
+
+            word.transform.SetParent(canvasPanel.transform);
+            word.startFallingToggleTimer = spawnTimer;
+            StartCoroutine(word.ToggleFalling());
+            GetComponent<Prototype>().RefreshLetters();
+        }
     }
 
     public void DisableSpawning()

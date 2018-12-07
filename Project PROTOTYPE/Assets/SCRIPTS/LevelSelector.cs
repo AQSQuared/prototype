@@ -189,7 +189,7 @@ public class LevelSelector : MonoBehaviour {
         if (redw)
         {
             redWordBar.color = new Color(1f, 88f / 255f, 88f / 255f);
-            redWordBar.transform.GetChild(0).GetComponent<Text>().text = "RED WORD";
+            redWordBar.transform.GetChild(0).GetComponent<Text>().text = "NUMBERS";
         }
         else if (!redw)
         {

@@ -201,7 +201,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: LevelCompleteThreeStars
-  m_Speed: 2
+  m_Speed: 1.4
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []

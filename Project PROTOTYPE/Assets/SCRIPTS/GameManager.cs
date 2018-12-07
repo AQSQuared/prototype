@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
     public int[] winStars;
     public GameObject[] stars;
     public Text[] goalScores;
+    public List<RectTransform> starBarsRectWidths = new List<RectTransform>();
 
     [HideInInspector]
     [Range(0, 3)]
@@ -39,9 +40,11 @@ public class GameManager : MonoBehaviour {
     public GameObject qwertyBoard;
     public GameObject azertyBoard;
     public GameObject regularBoard;
+    public GameObject numberBoard;
     public GameObject ins01P;
     public GameObject ins02P;
     public GameObject ins03P;
+    public RectTransform starBarect;
     public Text levelScoreText;
     public Button exitButton;
 
@@ -61,9 +64,11 @@ public class GameManager : MonoBehaviour {
     private Color defaultColorOfLevelCounter;
 
     bool levelLost;
+    float l;
+    float jklm;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         prototype = GetComponent<Prototype>();
         spawner = GetComponent<WordSpawner>();
         levelCompletor = GetComponent<LevelCompletor>();
@@ -88,6 +93,12 @@ public class GameManager : MonoBehaviour {
             levelScoreText.transform.GetChild(0).GetComponent<Text>().text = score.ToString();
         }
         SetBars();
+
+        for(int i = 0; i < starBars.Length; i++)
+        {
+            starBarsRectWidths.Add(starBars[i].GetComponent<RectTransform>());
+        }
+        SetBarsWidth();
 
         colorOfStars[0] = stars[0].transform.GetChild(0).GetComponent<Image>().color;
         colorOfStars[1] = stars[1].transform.GetChild(0).GetComponent<Image>().color;
@@ -134,6 +145,13 @@ public class GameManager : MonoBehaviour {
             }
 
         }
+
+        if(score <= 0 && winCondition == WinCondition.SCORE)
+        {
+            score = 0;
+            levelScoreText.transform.GetChild(0).GetComponent<Text>().text = score.ToString();
+        }
+                
     }
 
     public void IncreaseNumberOfWordsTyped ()
@@ -154,18 +172,20 @@ public class GameManager : MonoBehaviour {
      
     }
 
-    public void SetKeyboard (bool isQwertyBoard, bool isAzertyBoard, bool ins01, bool ins02, bool ins03, string roundType)
+    public void SetKeyboard (bool isQwertyBoard, bool isAzertyBoard, bool isNumberBoard, bool ins01, bool ins02, bool ins03, string roundType)
     {
         if (isQwertyBoard && !isAzertyBoard)
         {
             qwertyBoard.SetActive(true);
             azertyBoard.SetActive(false);
             regularBoard.SetActive(false);
+            numberBoard.SetActive(false);
         }
         else if (isAzertyBoard && !isQwertyBoard)
         {
             azertyBoard.SetActive(true);
             qwertyBoard.SetActive(false);
+            numberBoard.SetActive(false);
             regularBoard.SetActive(false);
         }
         else if(!isQwertyBoard && !isAzertyBoard)
@@ -173,6 +193,15 @@ public class GameManager : MonoBehaviour {
             qwertyBoard.SetActive(false);
             azertyBoard.SetActive(false);
             regularBoard.SetActive(true);
+            numberBoard.SetActive(false);
+        }
+
+        if (isNumberBoard)
+        {
+            qwertyBoard.SetActive(false);
+            azertyBoard.SetActive(false);
+            regularBoard.SetActive(false);
+            numberBoard.SetActive(true);
         }
 
         if (!ins01)
@@ -201,7 +230,7 @@ public class GameManager : MonoBehaviour {
 
         if (ins02)
         {
-            ins02P.GetComponentInChildren<Text>().text = "RED WORD";
+            ins02P.GetComponentInChildren<Text>().text = "NUMBERS";
         }
         if (ins03)
         {
@@ -464,6 +493,41 @@ public class GameManager : MonoBehaviour {
     public void PlayButtonForEndlessControl ()
     {
         SceneManager.LoadScene("LevelMain");
+    }
+
+    private void SetBarsWidth()
+    {
+        if (winCondition == WinCondition.NUMBER_OF_WORDS)
+        {
+            l = starBarect.rect.width / (winStars[0] + (winStars[1] - winStars[0]) + (winStars[2] - winStars[1]) + (spawner.numberOfWordsToSpawn - winStars[2]));
+        }
+        if (winCondition == WinCondition.SCORE)
+        {
+            l = starBarect.rect.width / (winStars[0] + (winStars[1] - winStars[0]) + (winStars[2] - winStars[1]) + ((spawner.numberOfWordsToSpawn * scoreToIncreasePerWord) - winStars[2]));
+        }
+
+        starBarsRectWidths[0].sizeDelta = new Vector2(winStars[0] * l, starBarsRectWidths[0].sizeDelta.y);
+        starBarsRectWidths[1].sizeDelta = new Vector2((winStars[1] - winStars[0]) * l, starBarsRectWidths[1].sizeDelta.y);
+        starBarsRectWidths[2].sizeDelta = new Vector2((winStars[2] - winStars[1]) * l, starBarsRectWidths[2].sizeDelta.y);
+        
+        if(winCondition == WinCondition.NUMBER_OF_WORDS)
+        {
+            starBarsRectWidths[3].sizeDelta = new Vector2((spawner.numberOfWordsToSpawn - winStars[2]) * l, starBarsRectWidths[3].sizeDelta.y);
+        }
+        if (winCondition == WinCondition.SCORE)
+        {
+            starBarsRectWidths[3].sizeDelta = new Vector2(((spawner.numberOfWordsToSpawn * scoreToIncreasePerWord) - winStars[2]) * l, starBarsRectWidths[3].sizeDelta.y);
+        }
+
+        //starBar01Rect.width = 
+    }
+
+    public void SetTextToIncreaseNOW()
+    {
+        if (winCondition == WinCondition.NUMBER_OF_WORDS)
+        {
+            levelScoreText.transform.GetChild(0).GetComponent<Text>().text = numberOfWordsTypedInThisGame.ToString();
+        }
     }
 }
 

@@ -15,7 +15,7 @@ public class Level : MonoBehaviour {
     
     [Header("Type of Level")]
     public bool isForwards;
-    public bool isRedWordRound;
+    public bool isNumberMode;
     public bool isMistakeMode;
     public string keysTypes;
 
@@ -72,11 +72,11 @@ public class Level : MonoBehaviour {
             infoObjects[0].color = new Color(144f / 255f, 81f / 255f, 1f);
         }
 
-        if (isRedWordRound)
+        if (isNumberMode)
         {
             infoObjects[1].color = new Color(1f, 88f / 255f, 88f / 255f);
         }
-        else if (!isRedWordRound)
+        else if (!isNumberMode)
         {
             infoObjects[1].gameObject.SetActive(false);
         }
@@ -131,7 +131,7 @@ public class Level : MonoBehaviour {
         playerMaxScore = PlayerPrefs.GetFloat(levelNumber.ToString() + "f");
 
         GameObject.Find("LevelSelect").GetComponent<Animator>().SetTrigger(Animator.StringToHash("Bring"));
-        FindObjectOfType<LevelSelector>().BeginLevel(levelNumber, winConditionMessage, Mathf.FloorToInt(playerMaxScore), isForwards, isRedWordRound, isMistakeMode, keysTypes, completeStatus, goalsNumbers, starsEarned, levelName);
+        FindObjectOfType<LevelSelector>().BeginLevel(levelNumber, winConditionMessage, Mathf.FloorToInt(playerMaxScore), isForwards, isNumberMode, isMistakeMode, keysTypes, completeStatus, goalsNumbers, starsEarned, levelName);
 
         if (levelNumber >= PlayerPrefs.GetInt("LevelsCompleted"))
         {
