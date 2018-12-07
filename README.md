@@ -1,2 +1,2 @@
 # prototype
-Project prototype repository for the upcoming game prototype.
+Project prototype repository for the test game prototype.
