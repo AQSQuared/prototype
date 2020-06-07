@@ -1,2 +1,2 @@
 # prototype
-Project prototype repository for the test game prototype.
+Typing game in unity. Made for gamedev practice.
